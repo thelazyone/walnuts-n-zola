@@ -1,0 +1,13 @@
+{% macro recipe_line(page) %}
+  <li class="menu-item">
+    <a href="{{ page.permalink }}" class="menu-item__link">
+      <span class="menu-item__name">
+        {{ page.title }}
+        {% include "partials/dietary.html" %}
+      </span>
+      {% if page.description %}
+        <span class="menu-item__desc">{{ page.description }}</span>
+      {% endif %}
+    </a>
+  </li>
+{% endmacro %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} · {{ config.title }}{% endblock %}
+
+{% block content %}
+{% if page.ancestors | length >= 2 %}
+  {% set section_path = page.ancestors[1] %}
+{% else %}
+  {% set section_path = page.ancestors | first %}
+{% endif %}
+{% if not section_path is ending_with("_index.md") %}
+  {% set section_path = section_path ~ "/_index.md" %}
+{% endif %}
+{% set parent_section = get_section(path=section_path) %}
+
+<main class="recipe-page">
+  {% set current_path = parent_section.path %}
+  {% include "partials/nav.html" %}
+
+  <article class="recipe">
+    <header class="recipe__header">
+      <p class="recipe__back">
+        <a href="{{ parent_section.permalink }}">← {{ parent_section.title }}</a>
+      </p>
+      <div class="recipe__title-row">
+        <h1 class="recipe__title">{{ page.title }}{% include "partials/dietary.html" %}</h1>
+        {% if page.extra.ingredients %}
+          <aside class="recipe__ingredients">
+            <h2 class="recipe__ingredients-heading">Ingredients</h2>
+            <div class="recipe__ingredients-body">{{ page.extra.ingredients | markdown(inline=true) | safe }}</div>
+          </aside>
+        {% endif %}
+      </div>
+      {% if page.description %}
+        <p class="recipe__tagline">{{ page.description }}</p>
+      {% endif %}
+    </header>
+
+    {% if page.content %}
+      <div class="recipe__body">{{ page.content | safe }}</div>
+    {% endif %}
+
+    {% if page.extra.notes %}
+      <footer class="recipe__notes">
+        <h2 class="recipe__notes-heading">Notes</h2>
+        <div class="recipe__notes-body">{{ page.extra.notes | markdown(inline=true) | safe }}</div>
+      </footer>
+    {% endif %}
+  </article>
+</main>
+{% endblock %}

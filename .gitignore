@@ -1,0 +1,21 @@
+# Zola output
+/public/
+
+# Reference theme (not part of the site build)
+/zola_reference_example/
+
+# OS & editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/

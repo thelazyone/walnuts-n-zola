@@ -1,0 +1,11 @@
++++
+title = "Herbs Ravioli"
+description = "Ravioli in a light buttery mix of herbs and green chily. Corbesassi Special."
+path = "herbs-ravioli"
+template = "recipe.html"
+weight = 100
+
+[extra]
+dietary = []
++++
+

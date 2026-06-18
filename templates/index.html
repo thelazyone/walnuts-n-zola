@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+
+{% block title %}{{ config.title }}{% endblock %}
+
+{% block content %}
+<main class="home">
+  {% include "partials/nav.html" %}
+
+  {% set dishes_data = load_data(path="data/dishes_of_the_day.toml", required=false) %}
+
+  <section class="dishes-of-the-day" aria-labelledby="dotd-heading">
+    <h2 id="dotd-heading" class="dishes-of-the-day__heading">Dishes of the day</h2>
+    {% if dishes_data and dishes_data.dishes %}
+    <ul class="dishes-of-the-day__list">
+      {% for dish in dishes_data.dishes %}
+        <li class="dishes-of-the-day__item">
+          <a href="{{ get_url(path=dish.url) | safe }}" class="dishes-of-the-day__link">
+            <span class="dishes-of-the-day__name">{{ dish.title }}</span>
+            {% if dish.description %}
+              <span class="dishes-of-the-day__desc">{{ dish.description }}</span>
+            {% endif %}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="dishes-of-the-day__empty">Run <code>python scripts/dishes_of_the_day.py</code> before building.</p>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}

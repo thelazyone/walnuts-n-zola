@@ -1,0 +1,16 @@
+{% if page.extra.dietary %}
+<span class="dietary" aria-label="Dietary information">
+  {% for flag in page.extra.dietary %}
+    {% set key = flag | lower | replace(from="_", to="-") %}
+    {% if key == "meat" %}
+      <img class="dietary__icon" src="{{ get_url(path='images/meat.png') | safe }}" alt="Contains meat" title="meat" width="18" height="18">
+    {% elif key == "vegan" %}
+      <img class="dietary__icon" src="{{ get_url(path='images/vegan.png') | safe }}" alt="Vegan" title="vegan" width="18" height="18">
+    {% elif key == "gluten-free" %}
+      <img class="dietary__icon" src="{{ get_url(path='images/gluten_free.png') | safe }}" alt="Gluten free" title="gluten-free" width="18" height="18">
+    {% elif key == "dairy-free" or key == "lactose-free" %}
+      <img class="dietary__icon" src="{{ get_url(path='images/lactose-free.png') | safe }}" alt="Dairy free" title="dairy-free" width="18" height="18">
+    {% endif %}
+  {% endfor %}
+</span>
+{% endif %}

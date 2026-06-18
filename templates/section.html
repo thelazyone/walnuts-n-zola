@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+
+{% block title %}{{ section.title }} · {{ config.title }}{% endblock %}
+
+{% block content %}
+<main class="section-page">
+  {% set current_path = section.path %}
+  {% include "partials/nav.html" %}
+
+  <header class="section-page__header">
+    <h1 class="section-page__title">{{ section.title }}</h1>
+  </header>
+
+  {% for sub_path in section.subsections %}
+    {% set sub = get_section(path=sub_path) %}
+    {% set anchor = sub.title | slugify %}
+    <section class="subsection" id="{{ anchor }}">
+      <h2 class="subsection__title">{{ sub.title }}</h2>
+      <ul class="menu-list">
+        {% for page in sub.pages %}
+          {{ m::recipe_line(page=page) }}
+        {% endfor %}
+      </ul>
+    </section>
+  {% endfor %}
+</main>
+{% endblock %}

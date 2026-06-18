@@ -1,0 +1,16 @@
+# https://www.getzola.org/documentation/getting-started/configure-a-site/
+title = "Lesnack"
+description = "A menu of recipes"
+base_url = "https://lesnack.com/"
+compile_sass = false
+minify_html = true
+default_language = "en"
+# Match GitHub Actions and modern Zola APIs (get_section, load_data).
+# Install: https://www.getzola.org/documentation/getting-started/installation/
+
+[markdown]
+highlight_code = false
+smart_punctuation = true
+
+[extra]
+dishes_of_the_day_count = 6
