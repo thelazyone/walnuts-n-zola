@@ -32,7 +32,7 @@ jobs:
             -v "${{ github.workspace }}":/workspace \
             -w /workspace \
             ghcr.io/getzola/zola:v0.19.2 \
-            build
+            build --base-url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3

@@ -1,7 +1,7 @@
 # https://www.getzola.org/documentation/getting-started/configure-a-site/
 title = "Lesnack"
 description = "A menu of recipes"
-base_url = "https://lesnack.com/"
+base_url = "https://thelazyone.github.io/walnuts-n-zola/"
 compile_sass = false
 minify_html = true
 default_language = "en"
