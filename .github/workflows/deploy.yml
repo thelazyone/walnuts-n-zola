@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -23,14 +23,16 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Install Zola
-        uses: getzola/zola@v0.19.2
-
       - name: Select dishes of the day
         run: python3 scripts/dishes_of_the_day.py
 
-      - name: Build
-        run: zola build
+      - name: Build with Zola
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}":/workspace \
+            -w /workspace \
+            ghcr.io/getzola/zola:v0.19.2 \
+            build
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
