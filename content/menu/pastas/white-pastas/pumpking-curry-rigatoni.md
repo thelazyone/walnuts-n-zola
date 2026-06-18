@@ -1,7 +1,7 @@
 +++
-title = "Pumpking Curry Rigatoni"
+title = "Pumpkin Curry Rigatoni"
 description = "Short pasta slowly cooked in a spiced pumpking pureè"
-path = "pumpking-curry-rigatoni"
+path = "pumpkin-curry-rigatoni"
 template = "recipe.html"
 weight = 1
 
