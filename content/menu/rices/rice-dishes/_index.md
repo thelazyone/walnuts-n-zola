@@ -1,6 +1,6 @@
 +++
-title = "White pastas"
-weight = 2
+title = "Rice Dishes"
+weight = 10001
 sort_by = "weight"
 render = false
 +++

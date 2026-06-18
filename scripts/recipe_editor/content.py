@@ -111,6 +111,23 @@ def write_markdown(path: Path, front: dict[str, Any], body: str) -> None:
     path.write_text(content, encoding="utf-8")
 
 
+def rename_folder_for_title(index_path: Path, title: str) -> Path:
+    """Rename a section/subsection folder to match slugified title."""
+    folder = index_path.parent
+    slug = slugify(title)
+    if folder.name == slug:
+        return index_path
+
+    target = folder.parent / slug
+    if target.exists() and target.resolve() != folder.resolve():
+        raise FileExistsError(
+            f"Cannot rename '{folder.name}' to '{slug}': folder already exists."
+        )
+
+    shutil.move(str(folder), str(target))
+    return target / "_index.md"
+
+
 def node_kind(path: Path) -> str:
     rel = path.relative_to(MENU_ROOT)
     parts = rel.parts
@@ -326,13 +343,62 @@ def save_recipe(path: Path, front: dict[str, Any], body: str) -> Path:
     return target
 
 
-def save_section_index(path: Path, front: dict[str, Any]) -> None:
+def save_section_index(path: Path, front: dict[str, Any]) -> Path:
     _, body = parse_markdown(path)
     write_markdown(path, front, body)
+    title = str(front.get("title") or "").strip()
+    if title:
+        return rename_folder_for_title(path, title)
+    return path
 
 
-def save_subsection_index(path: Path, front: dict[str, Any]) -> None:
+def save_subsection_index(path: Path, front: dict[str, Any]) -> Path:
     write_markdown(path, front, "")
+    title = str(front.get("title") or "").strip()
+    if title:
+        return rename_folder_for_title(path, title)
+    return path
+
+
+def sync_all_folder_names() -> list[str]:
+    """Rename every section/subsection folder to match its title. Returns log lines."""
+    changes: list[str] = []
+
+    for section_dir in sorted(MENU_ROOT.iterdir()):
+        if not section_dir.is_dir():
+            continue
+        index = section_dir / "_index.md"
+        if not index.is_file():
+            continue
+        front, body = parse_markdown(index)
+        title = str(front.get("title") or "").strip()
+        if not title:
+            continue
+        old_name = section_dir.name
+        new_index = save_section_index(index, front)
+        if new_index.parent.name != old_name:
+            changes.append(f"section: {old_name} -> {new_index.parent.name}")
+            section_dir = new_index.parent
+
+        for sub_dir in sorted(section_dir.iterdir()):
+            if not sub_dir.is_dir():
+                continue
+            sub_index = sub_dir / "_index.md"
+            if not sub_index.is_file():
+                continue
+            sub_front, _ = parse_markdown(sub_index)
+            sub_title = str(sub_front.get("title") or "").strip()
+            if not sub_title:
+                continue
+            old_sub = sub_dir.name
+            new_sub_index = save_subsection_index(sub_index, sub_front)
+            if new_sub_index.parent.name != old_sub:
+                changes.append(
+                    f"subsection: {section_dir.name}/{old_sub} -> "
+                    f"{section_dir.name}/{new_sub_index.parent.name}"
+                )
+
+    return changes
 
 
 def all_subsections() -> list[tuple[str, Path]]:

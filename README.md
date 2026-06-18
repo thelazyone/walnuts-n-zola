@@ -87,7 +87,7 @@ Visual editor for sections, subsections, and recipes under `content/menu/`:
 python -m scripts.recipe_editor
 ```
 
-Features: tree view, edit fields, add/duplicate/delete, move recipes between subsections, auto-generate URL path from title.
+Features: tree view, edit fields, add/duplicate/delete, move recipes between subsections, auto-generate URL path from title. Saving a section or subsection renames its folder to match the title; use **Sync folders** (or `python -m scripts.recipe_editor --sync-folders`) to fix all at once.
 
 Requires Python 3.10+ (uses tkinter, included with Python on Windows).
 

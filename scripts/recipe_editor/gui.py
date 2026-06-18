@@ -113,6 +113,7 @@ class RecipeEditorApp(tk.Tk):
         bar.pack(fill=tk.X)
 
         ttk.Button(bar, text="Refresh", command=self.refresh_tree).pack(side=tk.LEFT)
+        ttk.Button(bar, text="Sync folders", command=self.sync_folders).pack(side=tk.LEFT, padx=(8, 0))
         ttk.Button(bar, text="Add section", command=self.add_section).pack(side=tk.LEFT, padx=(8, 0))
         ttk.Button(bar, text="Add subsection", command=self.add_subsection).pack(side=tk.LEFT, padx=(8, 0))
         ttk.Button(bar, text="Add recipe", command=self.add_recipe).pack(side=tk.LEFT, padx=(8, 0))
@@ -343,14 +344,16 @@ class RecipeEditorApp(tk.Tk):
                 front["title"] = self._form_vars["title"].get().strip()
                 front["description"] = self._form_vars["description"].get().strip()
                 front["weight"] = int(self._form_vars["weight"].get().strip() or "0")
-                content.save_section_index(node.path, front)
+                node.path = content.save_section_index(node.path, front)
+                node.title = front["title"]
             elif node.kind == "subsection":
                 front, _ = content.parse_markdown(node.path)
                 front["title"] = self._form_vars["title"].get().strip()
                 front["weight"] = int(self._form_vars["weight"].get().strip() or "0")
                 front.setdefault("render", False)
                 front.setdefault("sort_by", "weight")
-                content.save_subsection_index(node.path, front)
+                node.path = content.save_subsection_index(node.path, front)
+                node.title = front["title"]
             elif node.kind == "recipe":
                 front, _ = content.parse_markdown(node.path)
                 extra = dict(front.get("extra") or {})
@@ -395,6 +398,18 @@ class RecipeEditorApp(tk.Tk):
             messagebox.showerror("Error", "A section with that folder name already exists.")
             return
         self.refresh_tree()
+
+    def sync_folders(self) -> None:
+        try:
+            changes = content.sync_all_folder_names()
+        except Exception as exc:
+            messagebox.showerror("Sync failed", str(exc))
+            return
+        self.refresh_tree()
+        if changes:
+            messagebox.showinfo("Folders synced", "\n".join(changes))
+        else:
+            messagebox.showinfo("Folders synced", "All folder names already match their titles.")
 
     def add_subsection(self) -> None:
         node = self._selected_node()
