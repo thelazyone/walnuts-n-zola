@@ -7,26 +7,17 @@
 <main class="home">
   {% include "partials/nav.html" %}
 
-  {% set dishes_data = load_data(path="data/dishes_of_the_day.toml", required=false) %}
+  {% include "partials/dishes-data.html" %}
 
-  <section class="dishes-of-the-day" aria-labelledby="dotd-heading">
+  <section
+    class="dishes-of-the-day"
+    aria-labelledby="dotd-heading"
+    data-count="{{ config.extra.dishes_of_the_day_count }}"
+    data-root="{{ get_url(path='/') | safe }}"
+  >
     <h2 id="dotd-heading" class="dishes-of-the-day__heading">Dishes of the day</h2>
-    {% if dishes_data and dishes_data.dishes %}
-    <ul class="dishes-of-the-day__list">
-      {% for dish in dishes_data.dishes %}
-        <li class="dishes-of-the-day__item">
-          <a href="{{ get_url(path=dish.url) | safe }}" class="dishes-of-the-day__link">
-            <span class="dishes-of-the-day__name">{{ dish.title }}</span>
-            {% if dish.description %}
-              <span class="dishes-of-the-day__desc">{{ dish.description }}</span>
-            {% endif %}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p class="dishes-of-the-day__empty">Run <code>python scripts/dishes_of_the_day.py</code> before building.</p>
-    {% endif %}
+    <ul id="dotd-list" class="dishes-of-the-day__list"></ul>
   </section>
 </main>
+<script src="{{ get_url(path='js/dishes-of-the-day.js') | safe }}" defer></script>
 {% endblock %}

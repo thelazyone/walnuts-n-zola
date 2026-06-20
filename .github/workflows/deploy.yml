@@ -3,9 +3,6 @@ name: Deploy site
 on:
   push:
     branches: [main]
-  schedule:
-    # Midnight CET (23:00 UTC summer / 00:00 UTC winter) — 05:00 UTC covers CET midnight in winter
-    - cron: "0 5 * * *"
   workflow_dispatch:
 
 permissions:
@@ -22,9 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-
-      - name: Select dishes of the day
-        run: python3 scripts/dishes_of_the_day.py
 
       - name: Build with Zola
         run: |

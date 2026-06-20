@@ -1,0 +1,17 @@
+<script type="application/json" id="dishes-data">
+[
+{%- set menu = get_section(path="menu/_index.md") -%}
+{%- set_global dish_index = 0 -%}
+{%- for section_path in menu.subsections -%}
+  {%- set sec = get_section(path=section_path) -%}
+  {%- for sub_path in sec.subsections -%}
+    {%- set sub = get_section(path=sub_path) -%}
+    {%- for page in sub.pages -%}
+      {%- if dish_index > 0 -%},{%- endif -%}
+{"title":{{ page.title | json_encode | safe }},"description":{{ page.description | default(value="") | json_encode | safe }},"slug":{{ page.components | last | json_encode | safe }}}
+      {%- set_global dish_index = dish_index + 1 -%}
+    {%- endfor -%}
+  {%- endfor -%}
+{%- endfor -%}
+]
+</script>
