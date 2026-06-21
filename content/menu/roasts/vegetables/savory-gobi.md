@@ -1,6 +1,6 @@
 +++
 title = "Savory Gobi"
-description = "Oven-roasted Cauliflower in a dark soy sauce and garlic marinade"
+description = "Oven-roasted cauliflower in a dark soy sauce and garlic marinade"
 path = "savory-gobi"
 template = "recipe.html"
 weight = 100

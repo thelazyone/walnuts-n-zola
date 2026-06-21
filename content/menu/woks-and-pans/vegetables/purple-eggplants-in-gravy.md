@@ -1,6 +1,6 @@
 +++
 title = "Purple Eggplants in Gravy"
-description = "Purple Eggplants stewed with Anice and Sichuan Pepper in a thick savory sauce"
+description = "Purple eggplants stewed with anice and Sichuan pepper in a thick savory sauce"
 path = "purple-eggplants-in-gravy"
 template = "recipe.html"
 weight = 100

@@ -1,6 +1,6 @@
 +++
 title = "Very Arrabbiata"
-description = "Plant-based smoked Pancetta in a punchly hot tomato sauce"
+description = "Plant-based smoked pancetta in a punchly hot tomato sauce"
 path = "very-arrabbiata"
 template = "recipe.html"
 weight = 100

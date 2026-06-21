@@ -1,6 +1,6 @@
 +++
 title = "From the Steam Cooker"
-description = ""
+description = "The two-decades old Aluminum steam cooker that keeps giving"
 template = "section.html"
 weight = 10000
 sort_by = "weight"

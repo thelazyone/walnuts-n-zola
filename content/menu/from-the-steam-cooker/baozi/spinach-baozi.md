@@ -1,6 +1,6 @@
 +++
 title = "Spinach Baozi"
-description = "Baozi filled with Spinach, Cabbage and Ricotta."
+description = "Baozi filled with spinach, cabbage and ricotta"
 path = "spinach-baozi"
 template = "recipe.html"
 weight = 100

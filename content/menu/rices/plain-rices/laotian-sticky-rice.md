@@ -1,6 +1,6 @@
 +++
 title = "Laotian Sticky Rice"
-description = "Soaked and steamed glutinous rice"
+description = "Steamed glutinous rice"
 path = "laotian-sticky-rice"
 template = "recipe.html"
 weight = 100

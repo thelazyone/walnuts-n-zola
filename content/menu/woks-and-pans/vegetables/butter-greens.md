@@ -1,6 +1,6 @@
 +++
 title = "Butter Greens"
-description = "A simple dish of leafy Spinach or Cicory with butter and lemon."
+description = "A simple dish of leafy spinach or cicory with butter and lemon"
 path = "butter-greens"
 template = "recipe.html"
 weight = 100
