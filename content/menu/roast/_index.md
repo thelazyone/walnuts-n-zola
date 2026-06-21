@@ -1,8 +1,8 @@
 +++
-title = "Teas"
-description = "A collection of teas from across the globe"
+title = "Roast"
+description = "Everything coming out from the oven"
 template = "section.html"
-weight = 10004
+weight = 2
 sort_by = "weight"
 page_template = "recipe.html"
 insert_anchor_links = "none"
