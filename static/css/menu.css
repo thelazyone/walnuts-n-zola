@@ -285,36 +285,10 @@ a:focus-visible {
 }
 
 .section-page__title {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 400;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  margin: 0;
-}
-
-/* Page headers */
-
-.page-header {
-  text-align: center;
-  margin-bottom: calc(var(--space) * 2);
-}
-
-.page-header__title {
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  margin: 0 0 0.75rem;
-}
-
-.page-header__intro {
-  font-size: 0.92rem;
-  font-style: italic;
-  color: var(--ink-muted);
-  max-width: 32rem;
-  margin: 0 auto;
-}
-
-.page-header__intro p {
   margin: 0;
 }
 
@@ -406,7 +380,7 @@ a:focus-visible {
 }
 
 .recipe__title {
-  font-size: 1.6rem;
+  font-size: 1.9rem;
   font-weight: 400;
   margin: 0;
   line-height: 1.3;
