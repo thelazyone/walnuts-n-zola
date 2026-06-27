@@ -1,127 +1,58 @@
 {% set menu = get_section(path="menu/_index.md") %}
 
-
-
 <header class="site-header">
-
   <a href="{{ config.base_url }}" class="site-header__logo-link">
-
-    <img
-
-      src="{{ get_url(path='images/logo.png') | safe }}"
-
-      alt="{{ config.title }}"
-
-      class="site-header__logo"
-
-      width="320"
-
-    >
-
+    {% include "partials/logo.html" %}
   </a>
-
 </header>
 
-
-
 <nav class="nav" aria-label="Menu sections">
-
   <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
-
     Menu
-
   </button>
 
-
-
   <div class="nav__panel" id="nav-panel">
-
     <ul class="nav__list">
-
       <li class="nav__item">
-
         <a href="{{ menu.permalink }}" class="nav__link{% if current_path is defined and current_path == menu.path %} nav__link--active{% endif %}">
-
           All dishes
-
         </a>
-
       </li>
 
-
-
       {% for section_path in menu.subsections %}
-
         {% set section = get_section(path=section_path) %}
-
         <li class="nav__item nav__item--has-sub{% if current_path is defined and current_path == section.path %} nav__item--active{% endif %}">
-
           <a href="{{ section.permalink }}" class="nav__link nav__link--section">
-
             {{ section.title }}
-
           </a>
 
-
-
           {% if section.subsections %}
-
             <ul class="nav__sublist" aria-label="{{ section.title }} subsections">
-
               {% for sub_path in section.subsections %}
-
                 {% set sub = get_section(path=sub_path) %}
-
                 <li class="nav__subitem">
-
                   <a href="{{ section.permalink }}#{{ sub.title | slugify }}" class="nav__sublink">
-
                     {{ sub.title }}
-
                   </a>
-
                 </li>
-
               {% endfor %}
-
             </ul>
-
           {% endif %}
-
         </li>
-
       {% endfor %}
-
     </ul>
-
   </div>
-
 </nav>
 
-
-
 <script>
-
 (function () {
-
   var toggle = document.querySelector(".nav__toggle");
-
   var panel = document.getElementById("nav-panel");
-
   if (!toggle || !panel) return;
 
-
-
   toggle.addEventListener("click", function () {
-
     var open = panel.classList.toggle("nav__panel--open");
-
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
-
   });
-
 })();
-
 </script>
-
-

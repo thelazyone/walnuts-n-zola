@@ -1,0 +1,9 @@
+{# Theme default: static/images/logo.png. Site override: content/logo/logo.png (see README). #}
+<img
+  src="{{ get_url(path='logo/logo.png') | safe }}"
+  data-fallback="{{ get_url(path='images/logo.png') | safe }}"
+  alt="{{ config.title }}"
+  class="site-header__logo"
+  width="320"
+  onerror="if (this.dataset.fallback && this.src !== this.dataset.fallback) { this.src = this.dataset.fallback; }"
+>

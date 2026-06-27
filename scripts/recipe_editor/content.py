@@ -14,9 +14,24 @@ MENU_ROOT = SITE_ROOT / "content" / "menu"
 
 
 def default_site_root() -> Path:
+    """Pick the Zola site root (directory containing content/menu/)."""
+    cwd = Path.cwd()
+    if (cwd / "content" / "menu").is_dir():
+        return cwd
+
+    if THEME_ROOT.parent.name == "themes":
+        site = THEME_ROOT.parent.parent
+        if (site / "content" / "menu").is_dir():
+            return site
+
     lesnack = THEME_ROOT / "lesnack"
     if (lesnack / "content" / "menu").is_dir():
         return lesnack
+
+    example = THEME_ROOT / "exampleSite"
+    if (example / "content" / "menu").is_dir():
+        return example
+
     return THEME_ROOT
 
 

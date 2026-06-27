@@ -8,7 +8,6 @@ minify_html = true
 default_language = "en"
 
 [markdown]
-highlight_code = false
 smart_punctuation = true
 
 [extra]

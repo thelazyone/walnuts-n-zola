@@ -31,7 +31,6 @@ minify_html = true
 default_language = "en"
 
 [markdown]
-highlight_code = false
 smart_punctuation = true
 
 [extra]
@@ -64,12 +63,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Install theme
-        run: |
-          docker run --rm \
-            -v "${{ github.workspace }}":/project \
-            -w /project \
-            ghcr.io/getzola/zola:v0.19.2 \
-            install https://github.com/thelazyone/walnuts-n-zola
+        run: git clone --depth 1 https://github.com/thelazyone/walnuts-n-zola themes/walnuts-n-zola
 
       - name: Build with Zola
         run: |
@@ -104,7 +98,7 @@ jobs:
 4. In the repo **Settings → Pages**, set source to **GitHub Actions**.
 5. The site will be at https://thelazyone.github.io/lesnack/
 
-The theme is installed from `main` on each build (`zola install`). Pin to a release tag later if you want stricter stability.
+The theme is cloned from `main` on each CI build. Pin to a release tag later if you want stricter stability.
 
 ## Recipe editor
 
