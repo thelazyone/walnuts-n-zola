@@ -2,7 +2,7 @@
 title = "walnuts-n-zola demo"
 description = "A minimal, menu-style recipe site — live theme preview"
 base_url = "https://thelazyone.github.io/walnuts-n-zola/"
-theme = "../"
+theme = "walnuts-n-zola"
 compile_sass = false
 minify_html = true
 default_language = "en"

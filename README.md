@@ -117,6 +117,18 @@ Requires Python 3.10+ (uses tkinter).
 
 ## Theme development
 
+One-time setup — link this repo as the theme (needed for local builds):
+
+```bash
+# Linux / macOS
+./scripts/link-theme-local.sh
+
+# Windows (PowerShell)
+./scripts/link-theme-local.ps1
+```
+
+Then:
+
 ```bash
 cd exampleSite
 zola serve
@@ -131,7 +143,7 @@ cd exampleSite
 zola build
 ```
 
-Requires [Zola 0.19+](https://www.getzola.org/documentation/getting-started/installation/).
+Requires [Zola 0.19+](https://www.getzola.org/documentation/getting-started/installation/) (matches CI).
 
 ## Personal site setup
 

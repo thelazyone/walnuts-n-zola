@@ -3,8 +3,11 @@
 /exampleSite/public/
 /lesnack/public/
 
-# Personal site (private content — copy to the lesnack repo when ready)
+# Personal site (private content — gitignored). See ../docs/lesnack-site.md to publish.
 /lesnack/
+
+# Local theme symlinks (created by scripts/link-theme-local.*)
+/exampleSite/themes/
 
 # Reference theme (not part of the site build)
 /zola_reference_example/

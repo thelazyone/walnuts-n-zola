@@ -20,6 +20,11 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Link theme for demo build
+        run: |
+          mkdir -p exampleSite/themes
+          ln -s ../.. exampleSite/themes/walnuts-n-zola
+
       - name: Build demo with Zola
         run: |
           docker run --rm \
