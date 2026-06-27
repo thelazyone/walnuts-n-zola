@@ -1,0 +1,5 @@
+{% if page.extra.recommended %}
+<span class="recipe-badge recipe-badge--recommended" aria-label="Recommended by the chef">
+  <img class="recipe-badge__icon" src="{{ get_url(path='images/chef.png') | safe }}" alt="Recommended by the chef" title="Recommended by the chef" width="18" height="18">
+</span>
+{% endif %}

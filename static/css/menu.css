@@ -255,9 +255,10 @@ a:focus-visible {
   color: var(--ink-muted);
 }
 
-/* Dietary icons */
+/* Recipe badges (chef pick, dietary icons) */
 
-.dietary {
+.dietary,
+.recipe-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
@@ -265,7 +266,8 @@ a:focus-visible {
   vertical-align: middle;
 }
 
-.dietary__icon {
+.dietary__icon,
+.recipe-badge__icon {
   display: inline-block;
   width: 1rem;
   height: 1rem;
@@ -273,7 +275,8 @@ a:focus-visible {
   opacity: 0.85;
 }
 
-.recipe__title .dietary {
+.recipe__title .dietary,
+.recipe__title .recipe-badge {
   margin-left: 0.5rem;
 }
 

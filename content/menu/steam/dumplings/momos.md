@@ -7,5 +7,6 @@ weight = 100
 
 [extra]
 dietary = ["meat"]
+recommended = true
 +++
 

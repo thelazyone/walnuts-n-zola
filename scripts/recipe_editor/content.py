@@ -249,6 +249,7 @@ def default_recipe(name: str) -> dict[str, Any]:
         "path": slug,
         **RECIPE_DEFAULTS,
         "extra": {
+            "recommended": False,
             "dietary": [],
             "ingredients": "",
         },

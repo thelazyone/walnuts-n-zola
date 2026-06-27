@@ -6,6 +6,7 @@ template = "recipe.html"
 weight = 100
 
 [extra]
-dietary = []
+dietary = ["gluten-free", "dairy-free"]
+recommended = true
 +++
 

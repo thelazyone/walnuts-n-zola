@@ -60,6 +60,7 @@ template = "recipe.html"
 weight = 100
 
 [extra]
+recommended = true
 dietary = ["vegan", "gluten-free"]
 ingredients = """
 - item one
@@ -71,6 +72,8 @@ notes = "Optional note below the body."
 
 Optional markdown body for method or longer text.
 
+**Chef's pick:** set `recommended = true` under `[extra]` to show the chef icon next to the title.
+
 **Dietary flags:** `meat`, `fish`, `vegetarian`, `vegan`, `gluten-free`, `dairy-free` (any string works).
 
 **Ordering:** set `weight` to 1, 2, 3… to pin order; leave at `100` (or any shared value) for alphabetical sorting within the subsection.
@@ -78,6 +81,8 @@ Optional markdown body for method or longer text.
 ## Dishes of the day
 
 The homepage embeds the full recipe catalog at build time (Zola walks `content/menu/`). On load, `static/js/dishes-of-the-day.js` picks six recipes deterministically from today's date (`DDMMYY` seed, local browser clock) using SHA-256 ranking — same picks all day until midnight. Adding or editing recipes only requires a normal `zola build`; the daily rotation needs no rebuild.
+
+Sections can opt out by setting `exclude_from_dishes_of_the_day = true` under `[extra]` in the section's `_index.md` (all recipes in that section are skipped).
 
 ## Recipe editor (GUI)
 

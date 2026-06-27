@@ -214,11 +214,20 @@ class RecipeEditorApp(tk.Tk):
 
     def _show_section_form(self, node: content.TreeNode) -> None:
         front, _ = content.parse_markdown(node.path)
+        extra = front.get("extra") or {}
         self._clear_fields()
         self.form_title.config(text=f"Section: {node.title}")
         self._field("Title", "title", str(front.get("title") or ""))
         self._field("Description (shown on All dishes)", "description", str(front.get("description") or ""))
         self._field("Weight (nav order)", "weight", str(front.get("weight") or ""))
+        exclude_var = tk.BooleanVar(value=bool(extra.get("exclude_from_dishes_of_the_day")))
+        ttk.Checkbutton(
+            self.fields_frame,
+            text="Exclude from dishes of the day",
+            variable=exclude_var,
+            command=self._mark_dirty,
+        ).pack(anchor=tk.W, pady=(12, 0))
+        self._form_vars["exclude_from_dishes_of_the_day"] = exclude_var
 
     def _show_subsection_form(self, node: content.TreeNode) -> None:
         front, _ = content.parse_markdown(node.path)
@@ -249,6 +258,15 @@ class RecipeEditorApp(tk.Tk):
         ttk.Button(self.fields_frame, text="Generate path from title", command=autofill_path).pack(
             anchor=tk.W, pady=(4, 0)
         )
+
+        rec_var = tk.BooleanVar(value=bool(extra.get("recommended")))
+        ttk.Checkbutton(
+            self.fields_frame,
+            text="Recommended by the chef",
+            variable=rec_var,
+            command=self._mark_dirty,
+        ).pack(anchor=tk.W, pady=(12, 0))
+        self._form_vars["recommended"] = rec_var
 
         ttk.Label(self.fields_frame, text="Dietary flags").pack(anchor=tk.W, pady=(12, 2))
         diet_frame = ttk.Frame(self.fields_frame)
@@ -341,9 +359,18 @@ class RecipeEditorApp(tk.Tk):
         try:
             if node.kind == "section":
                 front, _ = content.parse_markdown(node.path)
+                extra = dict(front.get("extra") or {})
                 front["title"] = self._form_vars["title"].get().strip()
                 front["description"] = self._form_vars["description"].get().strip()
                 front["weight"] = int(self._form_vars["weight"].get().strip() or "0")
+                if self._form_vars["exclude_from_dishes_of_the_day"].get():
+                    extra["exclude_from_dishes_of_the_day"] = True
+                else:
+                    extra.pop("exclude_from_dishes_of_the_day", None)
+                if extra:
+                    front["extra"] = extra
+                else:
+                    front.pop("extra", None)
                 node.path = content.save_section_index(node.path, front)
                 node.title = front["title"]
             elif node.kind == "subsection":
@@ -362,6 +389,10 @@ class RecipeEditorApp(tk.Tk):
                 front["path"] = self._form_vars["path"].get().strip() or content.slugify(front["title"])
                 front["weight"] = int(self._form_vars["weight"].get().strip() or "100")
                 front.setdefault("template", "recipe.html")
+                if self._form_vars["recommended"].get():
+                    extra["recommended"] = True
+                else:
+                    extra.pop("recommended", None)
                 dietary = [flag for flag, var in self._form_vars["dietary"].items() if var.get()]
                 extra["dietary"] = dietary
                 ingredients = self._form_vars["ingredients"].get("1.0", tk.END).strip()

@@ -3,6 +3,7 @@
     <a href="{{ page.permalink }}" class="menu-item__link">
       <span class="menu-item__name">
         {{ page.title }}
+        {% include "partials/recommended.html" %}
         {% include "partials/dietary.html" %}
       </span>
       {% if page.description %}
