@@ -1,5 +1,10 @@
 # Zola output
 /public/
+/exampleSite/public/
+/lesnack/public/
+
+# Personal site (private content — copy to the lesnack repo when ready)
+/lesnack/
 
 # Reference theme (not part of the site build)
 /zola_reference_example/

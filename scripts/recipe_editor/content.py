@@ -8,8 +8,27 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parents[2]
-MENU_ROOT = ROOT / "content" / "menu"
+THEME_ROOT = Path(__file__).resolve().parents[2]
+SITE_ROOT = THEME_ROOT
+MENU_ROOT = SITE_ROOT / "content" / "menu"
+
+
+def default_site_root() -> Path:
+    lesnack = THEME_ROOT / "lesnack"
+    if (lesnack / "content" / "menu").is_dir():
+        return lesnack
+    return THEME_ROOT
+
+
+def configure_site_root(path: Path | str | None = None) -> Path:
+    """Set the Zola site root (directory containing content/menu/)."""
+    global SITE_ROOT, MENU_ROOT
+    SITE_ROOT = Path(path).resolve() if path is not None else default_site_root()
+    MENU_ROOT = SITE_ROOT / "content" / "menu"
+    return SITE_ROOT
+
+
+configure_site_root()
 
 FRONT_MATTER = re.compile(r"^\+{3}\s*\r?\n(.*?)\r?\n\+{3}\s*(?:\r?\n|$)", re.DOTALL)
 
@@ -145,7 +164,7 @@ class TreeNode:
 
     @property
     def rel(self) -> str:
-        return str(self.path.relative_to(ROOT))
+        return str(self.path.relative_to(SITE_ROOT))
 
 
 def read_title(path: Path) -> str:

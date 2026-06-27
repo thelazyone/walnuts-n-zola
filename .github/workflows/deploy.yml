@@ -1,4 +1,4 @@
-name: Deploy site
+name: Deploy demo site
 
 on:
   push:
@@ -20,18 +20,18 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Build with Zola
+      - name: Build demo with Zola
         run: |
           docker run --rm \
-            -v "${{ github.workspace }}":/workspace \
-            -w /workspace \
+            -v "${{ github.workspace }}":/project \
+            -w /project/exampleSite \
             ghcr.io/getzola/zola:v0.19.2 \
             build --base-url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public
+          path: ./exampleSite/public
 
   deploy:
     needs: build

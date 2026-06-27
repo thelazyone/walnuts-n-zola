@@ -1,0 +1,15 @@
+# Demo site for the walnuts-n-zola theme (built by GitHub Actions).
+title = "walnuts-n-zola demo"
+description = "A minimal, menu-style recipe site — live theme preview"
+base_url = "https://thelazyone.github.io/walnuts-n-zola/"
+theme = "../"
+compile_sass = false
+minify_html = true
+default_language = "en"
+
+[markdown]
+highlight_code = false
+smart_punctuation = true
+
+[extra]
+dishes_of_the_day_count = 6

@@ -1,25 +1,46 @@
-# Lesnack
+# walnuts-n-zola
 
-A minimal, menu-style recipe site built with [Zola](https://www.getzola.org/).
+A minimal, menu-style recipe theme for [Zola](https://www.getzola.org/).
 
-## Structure
+**Live demo:** https://thelazyone.github.io/walnuts-n-zola/
 
-```
-content/menu/
-  _index.md              # All dishes (sections overview)
-  pastas/
-    _index.md            # Section page
-    red-pastas/
-      _index.md          # Subsection (anchor only, render = false)
-      arrabbiata.md      # Recipe → /arrabbiata/
+## Install
+
+```bash
+zola install https://github.com/thelazyone/walnuts-n-zola
 ```
 
-- **Homepage** — logo, navigation, dishes of the day (6, rotated daily at build time, CET)
+Add to your site's `config.toml`:
+
+```toml
+theme = "walnuts-n-zola"
+
+[extra]
+dishes_of_the_day_count = 6
+```
+
+Place a logo at `static/images/logo.png` in your site (overrides the theme placeholder).
+
+## Content structure
+
+```
+content/
+  _index.md              # Homepage
+  menu/
+    _index.md            # All dishes (sections overview)
+    pastas/
+      _index.md          # Section page
+      red-pastas/
+        _index.md        # Subsection (anchor only, render = false)
+        arrabbiata.md    # Recipe → /arrabbiata/
+```
+
+- **Homepage** — logo, navigation, dishes of the day (count set in `[extra]`, rotated daily in the browser)
 - **All dishes** (`/menu/`) — section list with short descriptions
 - **Section pages** — subsections as anchors, recipes listed alphabetically (or by `weight`)
 - **Recipe pages** — flat URLs like `/arrabbiata/`
 
-## Adding content
+See `exampleSite/content/` for a minimal working menu.
 
 ### New section
 
@@ -44,8 +65,6 @@ render = false
 weight = 1
 +++
 ```
-
-Subsections appear as anchors on the section page (`#your-subsection`).
 
 ### New recipe
 
@@ -74,49 +93,49 @@ Optional markdown body for method or longer text.
 
 **Chef's pick:** set `recommended = true` under `[extra]` to show the chef icon next to the title.
 
-**Dietary flags:** `meat`, `fish`, `vegetarian`, `vegan`, `gluten-free`, `dairy-free` (any string works).
+**Dietary flags:** any string works — e.g. `meat`, `fish`, `vegetarian`, `vegan`, `gluten-free`, `dairy-free`.
 
-**Ordering:** set `weight` to 1, 2, 3… to pin order; leave at `100` (or any shared value) for alphabetical sorting within the subsection.
+**Ordering:** set `weight` to 1, 2, 3… to pin order; leave at `100` for alphabetical sorting within the subsection.
 
 ## Dishes of the day
 
-The homepage embeds the full recipe catalog at build time (Zola walks `content/menu/`). On load, `static/js/dishes-of-the-day.js` picks six recipes deterministically from today's date (`DDMMYY` seed, local browser clock) using SHA-256 ranking — same picks all day until midnight. Adding or editing recipes only requires a normal `zola build`; the daily rotation needs no rebuild.
+The homepage embeds the full recipe catalog at build time. On load, `static/js/dishes-of-the-day.js` picks recipes deterministically from today's date using SHA-256 ranking — same picks all day until midnight. Adding or editing recipes only requires a normal `zola build`; the daily rotation needs no rebuild.
 
-Sections can opt out by setting `exclude_from_dishes_of_the_day = true` under `[extra]` in the section's `_index.md` (all recipes in that section are skipped).
+Sections can opt out by setting `exclude_from_dishes_of_the_day = true` under `[extra]` in the section's `_index.md`.
 
 ## Recipe editor (GUI)
 
-Visual editor for sections, subsections, and recipes under `content/menu/`:
+Optional visual editor for menu content:
 
 ```bash
-python -m scripts.recipe_editor
+python -m scripts.recipe_editor --root /path/to/your/zola/site
 ```
 
-Features: tree view, edit fields, add/duplicate/delete, move recipes between subsections, auto-generate URL path from title. Saving a section or subsection renames its folder to match the title; use **Sync folders** (or `python -m scripts.recipe_editor --sync-folders`) to fix all at once.
+If you run it from this repo with a local `lesnack/` site folder, `--root` can be omitted (defaults to `lesnack/` when present).
 
-Requires Python 3.10+ (uses tkinter, included with Python on Windows).
+Requires Python 3.10+ (uses tkinter).
 
-## Local development
-
-Requires [Zola 0.19+](https://www.getzola.org/documentation/getting-started/installation/) (matches CI) and Python 3.10+.
+## Theme development
 
 ```bash
+cd exampleSite
 zola serve
 ```
 
 Open http://127.0.0.1:1111
 
-## Build
+Build the demo:
 
 ```bash
+cd exampleSite
 zola build
 ```
 
-Output is in `public/`.
+Requires [Zola 0.19+](https://www.getzola.org/documentation/getting-started/installation/).
 
-## Deploy
+## Personal site setup
 
-GitHub Actions builds on every push to `main`. Set `base_url` in `config.toml` to your real domain before going live.
+See [docs/lesnack-site.md](docs/lesnack-site.md) for deploying your own site with this theme (GitHub Actions, private repo, etc.).
 
 ## License
 
