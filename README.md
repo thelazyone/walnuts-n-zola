@@ -3,7 +3,7 @@
 A minimal, menu-style recipe theme for [Zola](https://www.getzola.org/).  
 **Demo:** https://thelazyone.github.io/walnuts-n-zola/
 
-![Screenshot](docs\screen.png)
+![Screenshot](docs/screen.png)
 
 ## Install
 
