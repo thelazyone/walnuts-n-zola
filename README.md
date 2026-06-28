@@ -60,7 +60,11 @@ Sections contain subsections (`render = false`) and recipes (`template = "recipe
 
 ## Recipe editor
 
-Visual editor for menu content. From your **site root**:
+Visual editor for menu content. 
+
+![Editor](docs/editor.png)
+
+From your **site root**:
 
 ```bash
 cd themes/walnuts-n-zola
